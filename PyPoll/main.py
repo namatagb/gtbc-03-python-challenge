@@ -1,4 +1,5 @@
 #dependencies
+import collections
 import os
 import csv
 
@@ -6,12 +7,12 @@ import csv
 csvpath = os.path.join('Resources', 'election_data.csv')
 
 total_votes = 0
+candidate = []
 candidates = []
-vote_count = 0
-khan_votes = 0
+votes = collections.defaultdict(int)
 
 #open the file
-with open(csvpath, newline='') as election_data:
+with open(csvpath, newline='', encoding='utf-8') as election_data:
 
     #read the file
     csvreader = csv.reader(election_data, delimiter=',')
@@ -19,6 +20,7 @@ with open(csvpath, newline='') as election_data:
     #skip header
     csvheader = next(csvreader)
     
+
     #loop
     for row in csvreader:
 
@@ -28,17 +30,23 @@ with open(csvpath, newline='') as election_data:
         #find candidates
         if row[2] not in candidates:
             candidates.append(row[2])
-        
-        #count votes per candidate
-        khan_votes = row[2].count('Khan')
-        
+
+    
         
 
 
 
 
+pp_results = []
+pp_results.append(f"The total votes for this election: {total_votes}")
+pp_results.append(f"First place to {candidates[0]}")
+pp_results.append(f"Second place to {candidates[1]}")
+pp_results.append(f"Third place to {candidates[2]}")
+pp_results.append(f"Fourth place to {candidates[3]}")
 
-print(total_votes)
-print(candidates)
-print(khan_votes) 
+#export as txt and print
+with open('Analysis/pp_results.txt', 'w', newline='') as f:
+    for line in pp_results:
+        f.write(line)
+        print(line)
    
