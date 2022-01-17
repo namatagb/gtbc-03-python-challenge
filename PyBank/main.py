@@ -5,8 +5,8 @@ import csv
 #define path to budget_data
 csvpath = os.path.join('Resources', 'budget_data.csv')
 
-total = 0
 months = 0
+total = 0
 minVal = ["Jan-2010",0]
 maxVal = ["Jan-2010",0]
 previous_month = 0
@@ -21,9 +21,8 @@ with open(csvpath, newline='', encoding="utf8") as budget_data:
 
     csvheader = next(csvreader)
 
-    #test reader
+    #loop
     for row in csvreader:
-        #print(row)
 
         #count months
         months += 1
@@ -45,23 +44,23 @@ with open(csvpath, newline='', encoding="utf8") as budget_data:
         #save month value for next loop
         previous_month = int(row[1])
 
-    #calculate average change
-    average_change = sum(monthly_changes)/len(monthly_changes)
+#calculate average change
+average_change = sum(monthly_changes)/len(monthly_changes)
 
-
+#prepare analysis
 pb_results = []
+pb_results.append(f"Financial Analysis")
+pb_results.append(f"-------------------------------")
 pb_results.append(f"The total number of months: {months}")
 pb_results.append(f"The net total profit and losses: ${total}")
+pb_results.append(f"The average monthly change: ${round(average_change,2)}")
 pb_results.append(f"The lowest month {minVal[0]}: ${minVal[1]}")
 pb_results.append(f"The highest month {maxVal[0]}: ${maxVal[1]}")
-pb_results.append(f"The average monthly change: ${round(average_change,2)}")
 
-    
 
-    #print all results
 
-#export as txt
-with open('Analysis/pb_results.txt', 'w') as f:
+#export as txt and print
+with open('Analysis/pb_results.txt', 'w', newline='') as f:
     for line in pb_results:
         f.write(line)
         print(line)
