@@ -31,12 +31,14 @@ with open(csvpath, newline='', encoding='utf-8') as election_data:
         if row[2] not in candidates:
             candidates.append(row[2])
 
+
+
     
         
 
 
 
-
+#prepare
 pp_results = []
 pp_results.append(f"The total votes for this election: {total_votes}")
 pp_results.append(f"First place to {candidates[0]}")
